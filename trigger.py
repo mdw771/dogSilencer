@@ -72,8 +72,10 @@ def spectral_peak_trigger(wav, range=(1000, 1e4), method='cwt', interval=1./4410
         peaks_inds = sps.find_peaks_cwt(f, widths)
     else:
         x_left, x_right = range
-        f_left = np.mean(f[x_left:x_left + 20])
-        f_right = np.mean(f[x_right - 20:x_right])
+        mask = (abs(freq) >= range[0]) * (abs(freq) <= range[1])
+        x_left_ind, x_right_ind = np.nonzero(mask)[0][0], np.nonzero(mask)[0][-1]
+        f_left = np.mean(f[x_left_ind:x_left_ind + 20])
+        f_right = np.mean(f[x_right_ind - 20:x_right_ind])
         peaks_inds = np.nonzero(freq >= int(np.mean(range)))[0][0]
 
     # Plotting spectrum
@@ -95,10 +97,8 @@ def spectral_peak_trigger(wav, range=(1000, 1e4), method='cwt', interval=1./4410
         if np.count_nonzero((peaks_inds >= range[0]) * (peaks_inds <= range[1])) > 0:
             trigger = True
     else:
-        mask = (abs(freq) >= range[0]) * (abs(freq) <= range[1])
-        x_left_ind, x_right_ind = np.nonzero(mask)[0][0], np.nonzero(mask)[0][-1]
-        base_int = (f_left + f_right) * (x_right_ind - x_left_ind) / 2
-        chunk_int = np.sum(f[(abs(freq) >= range[0]) * (abs(freq) <= range[1])])
+        base_int = (f_left + f_right) * (x_right_ind - x_left_ind + 1) / 2
+        chunk_int = np.sum(f[mask])
         peak_ratio = chunk_int / base_int
         if peak_ratio >= threshold_ratio:
             trigger = True
