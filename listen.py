@@ -53,7 +53,7 @@ def listen_to_surroundings(interval=2, buffer_chunk=1024, rate=44100, trigger=No
 if __name__ == '__main__':
 
     trigger = frequeny_trigger
-    trigger_pars = {'range': (2e3, 1e4), 'interval': 1./44100, 'threshold': 3e9}
+    trigger_pars = {'range': (500, 2e3), 'interval': 1./44100, 'threshold': 1e9}
     response = generate_wave_from_file
     response_pars = {'path': 'samples/antidog_ultrasound.wav'}
 

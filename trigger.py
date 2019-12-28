@@ -34,6 +34,9 @@ def frequeny_trigger(wav, range=(1000, 1e4), interval=1./44100, threshold=200000
     plt.xlabel('Frequency (Hz)')
     plt.clf()
     plt.plot(freq[:plim], f[:plim])
+    print(np.max(f[:plim]))
+    plt.vlines(range[0], 0, np.max(f[:plim]))
+    plt.vlines(range[1], 0, np.max(f[:plim]))
     plt.draw()
     plt.pause(0.001)
 
