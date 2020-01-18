@@ -55,6 +55,6 @@ if __name__ == '__main__':
     trigger = spectral_peak_trigger
     trigger_pars = {'range': (800, 2e3), 'interval': 1./44100, 'threshold_ratio': 2.5, 'method': 'pbr'}
     response = generate_wave_from_file
-    response_pars = {'path': 'samples/antidog_ultrasound.wav'}
+    response_pars = {'path': 'samples/antidog_ultrasound_20khz.wav'}
 
     listen_to_surroundings(trigger=trigger, trigger_pars=trigger_pars, response=response, response_pars=response_pars, schedule=None)
