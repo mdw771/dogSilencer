@@ -74,8 +74,8 @@ def spectral_peak_trigger(wav, range=(1000, 1e4), method='cwt', interval=1./4410
         x_left, x_right = range
         mask = (abs(freq) >= range[0]) * (abs(freq) <= range[1])
         x_left_ind, x_right_ind = np.nonzero(mask)[0][0], np.nonzero(mask)[0][-1]
-        f_left = np.mean(f[x_left_ind:x_left_ind + 20])
-        f_right = np.mean(f[x_right_ind - 20:x_right_ind])
+        f_left = np.mean(f[x_left_ind:x_left_ind + 5])
+        f_right = np.mean(f[x_right_ind - 5:x_right_ind])
         peaks_inds = np.nonzero(freq >= int(np.mean(range)))[0][0]
 
     # Plotting spectrum
